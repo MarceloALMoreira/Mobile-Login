@@ -6,42 +6,42 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 44px;
-
+    height: 800px;
     background-color: rgb(2, 2, 26);
 
 `
 export const Image = styled.img`
-    margin-top: 30px;
-    width: 250px;
-    height: 146px;
+    margin-top: 10px;
+    width: 151px;
+    height: 88px;
 `
 export const ContainerItens = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 50px 36px;
-    height: 645px;
-
-    border-radius: 61px 61px 0px 0px;
+    padding: 44px 12px;
+    margin-bottom: 20px;
+    border-radius: 10px 10px 10px 10px;
     background: linear-gradient(157.44deg, rgba(255, 255, 255, 0.6) 0.84%, rgba(255, 255, 255, 0.6) 0.85%, rgba(255, 255, 255, 0.15) 100%);
 `
 export const H1 = styled.h1`
     font-style: normal;
-    font-weight: 700;
-    font-size: 34px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 24px;
     line-height: 40px;
     text-align: center;
-    margin-bottom: 80px;
-
+    margin-bottom: 22px;
+    border-bottom:  1px solid rgba(0, 0, 0, 0.8);
     color: #fff;
 `
 export const InputLabel = styled.p`
     font-style: normal;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 18px;
+    padding-left: 18px;
     line-height: 22px;
     align-items: center;
     letter-spacing: -0.408px;
-
     color: #fff;
 `
 export const Input = styled.input`
@@ -55,7 +55,7 @@ export const Input = styled.input`
     padding-left: 18px;
     font-style: normal;
     font-weight: 200;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 28px;
     color: #FFF;
 
@@ -77,9 +77,7 @@ export const Button = styled.button`
     font-weight: 700;
     font-size: 17px;
     line-height: 28px;
-
     color: #fff;
-    cursor: pointer;
 
     &:hover{
         opacity: 0.8;
@@ -88,4 +86,40 @@ export const Button = styled.button`
         opacity: 0.5
     }
 
+`
+export const User = styled.li`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    margin-top: 15px;
+    width: 342px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 14px;
+    border: none;
+    outline: none;
+  
+    i{
+    cursor: pointer;
+    font-size: 24px;
+    }
+    i:hover{
+        color: red;
+        opacity: 0.8;
+        transition: 0.3s ease-in;
+    }
+    p{
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 28px;
+        color: #fff;
+    }
+  
+    &:hover{
+        opacity: 0.8;
+        background-color: greenyellow;
+    }
 `
