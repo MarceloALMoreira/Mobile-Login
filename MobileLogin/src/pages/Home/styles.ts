@@ -67,7 +67,7 @@ export const Button = styled.button`
     justify-content: center;
     gap: 20px;
 
-    margin-top: 77px;
+    margin-top: 57px;
     width: 342px;
     height: 54px;
     background: rgba(0, 0, 0, 0.8);
