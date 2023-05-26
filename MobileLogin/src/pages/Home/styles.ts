@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { Link } from "react-router-dom";
 
 
 export const Container = styled.div`
@@ -6,7 +7,8 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 44px;
-    height: 800px;
+    height: 100%;
+    min-height: 100vh;
     background-color: rgb(2, 2, 26);
 
 `
@@ -22,6 +24,11 @@ export const ContainerItens = styled.div`
     margin-bottom: 20px;
     border-radius: 10px 10px 10px 10px;
     background: linear-gradient(157.44deg, rgba(255, 255, 255, 0.6) 0.84%, rgba(255, 255, 255, 0.6) 0.85%, rgba(255, 255, 255, 0.15) 100%);
+`
+export const ContainerButtons = styled.div`
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
 `
 export const H1 = styled.h1`
     font-style: normal;
@@ -68,11 +75,41 @@ export const Button = styled.button`
     gap: 20px;
 
     margin-top: 57px;
-    width: 342px;
+    width: 157px;
     height: 54px;
+    text-decoration: none;
     background: rgba(0, 0, 0, 0.8);
     border-radius: 14px;
     border: none;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 28px;
+    color: #fff;
+
+    &:hover{
+        opacity: 0.8;
+    }
+    &:active{
+        opacity: 0.5
+    }
+
+`
+export const LinkUser = styled(Link)`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    margin-top: 57px;
+    width: 157px;
+    height: 54px;
+    text-decoration: none;
+    background: rgba(1, 1, 1, -5.8);
+    border-radius: 14px;
+    border: 1px solid white;
+
     font-style: normal;
     font-weight: 700;
     font-size: 17px;

@@ -1,12 +1,13 @@
 import { styled } from "styled-components";
-
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 44px;
-    height: 800px;
+    height: 100%;
+    min-height: 100vh;
     background-color: rgb(2, 2, 26);
 
 `
@@ -18,6 +19,7 @@ export const Image = styled.img`
 export const ContainerItens = styled.div`
     display: flex;
     flex-direction: column;
+    height: auto;
     padding: 44px 12px;
     margin-bottom: 20px;
     border-radius: 10px 10px 10px 10px;
@@ -31,7 +33,6 @@ export const H1 = styled.h1`
     font-size: 24px;
     line-height: 40px;
     text-align: center;
-    margin-bottom: 22px;
     border-bottom:  1px solid rgba(0, 0, 0, 0.8);
     color: #fff;
 `
@@ -62,24 +63,28 @@ export const Input = styled.input`
 
     margin-bottom: 34px;
 `
-export const Button = styled.button`
+export const Button = styled(Link)`
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 20px;
-
-    margin-top: 120px;
+    text-decoration: none;
+    margin-top: 10px;
+    
     width: 342px;
     height: 54px;
 
     border-radius: 14px;
     border: 1px solid white;
     background-color: transparent;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 17px;
-    line-height: 28px;
+    font-size: 18px;
     color: #fff;
+    a{
+        text-decoration: none;
+        color: #fff;
+        font-size: 18px;
+        font-weight: initial;
+    }
 
     &:hover{
         opacity: 0.8;
@@ -95,17 +100,20 @@ export const Button = styled.button`
 export const User = styled.li`
 
     margin-top: 15px;
-    height: 28px;
-    border: 1px solid white;
-    /* background: rgba(255, 255, 255, 0.25);
+    padding: 10px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.25);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 14px;
     border: none;
-    outline: none; */
+    outline: none;
   
     i{
     cursor: pointer;
     font-size: 24px;
+    display: flex;
     }
     i:hover{
         color: red;
@@ -122,6 +130,30 @@ export const User = styled.li`
   
     &:hover{
         opacity: 0.8;
-        background-color: greenyellow;
+        transition: 0.5s ease-in-out;
+        background-color: burlywood;
     }
 `
+
+
+//Paginação 
+export const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+`;
+
+export const PaginationButton = styled.button`
+  padding: 8px 12px;
+  border-radius: 10px;
+  background-color: #000;
+  color: white;
+  margin: 0 4px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover {
+   
+  }
+`;

@@ -1,83 +1,101 @@
-
-
-import { Container, H1, Image, ContainerItens, Button,User } from './styles'
-import PairPrograming from '../../assets/pair_programming.svg'
+import { Container, H1, Image, ContainerItens, Button, User, PaginationContainer, PaginationButton } from './styles';
+import PairPrograming from '../../assets/pair_programming.svg';
 import { IoArrowForwardOutline } from "react-icons/io5";
-import { useState } from 'react';
+import { BsPencilSquare, BsTrash } from 'react-icons/bs';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-interface Users {
-  id: number
-  name: string
-  age: number
+interface User {
+  id: number;
+  name: string;
+  age: number | undefined;
 }
-const Users: React.FC=() => {
 
-  const updateUsers = () =>{
-  console.log('teste')
-  }
+const Users = () => {
+  const [users, setUsers] = useState<User[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const usersPerPage = 5;
 
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/user');
+        const { data: MyUsers } = response;
+        setUsers(MyUsers);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  const users: Users[] = [
-    { id: 1, name: 'John Doe', age: 25 },
-    { id: 2, name: 'Jane Smith', age: 30 },
-    { id: 3, name: 'Bob Johnson', age: 28 },
-  ];
+    fetchUsers();
+  }, []);
 
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+
+  const deleteUser = async (userId: number) => {
+    await axios.delete(`http://localhost:3001/user/${userId}`);
+    setUsers(prevUsers => prevUsers.filter(u => u.id !== userId));
+  };
+
+  const totalPages = Math.ceil(users.length / usersPerPage);
+  const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <Container>
       <Image alt='Logo People' src={PairPrograming} />
       <ContainerItens>
-        <H1>Usuários</H1>        
-      {/* Lista de usuario cadastrado vindo da API */}
-    <ul>
-      {users.map((user) => (
-          <User key={user.id}>
-           {user.name} (Age: {user.age})
-          </User>
-      ))}
-   
-    </ul>
+        <H1>Usuários</H1>
+        {/* Lista de usuários cadastrados vindo da API */}
+        <ul>
+          {currentUsers.map((user) => (
+            <User key={user.id}>
+              <p>{user.name}</p>
+              <p>{user.age}</p>
+              <i><BsPencilSquare /></i>
+              <i onClick={() => deleteUser(user.id)}><BsTrash /></i>
+            </User>
+          ))}
+        </ul>
 
-        <Button  onClick={updateUsers}>             
-      <IoArrowForwardOutline />  
-          Voltar       
+        {/* Paginação */}
+        <PaginationContainer>
+      {pageNumbers.map((pageNumber) => (
+        <PaginationButton
+          key={pageNumber}
+          onClick={() => handlePageChange(pageNumber)}>
+            {pageNumber}
+        </PaginationButton>
+      ))}
+    </PaginationContainer>
+        <Button to={'/'}>
+          <IoArrowForwardOutline />
+          Voltar
         </Button>
       </ContainerItens>
     </Container>
-  )
-}
+  );
+};
 
-export default Users
-
-
+export default Users;
 
 
-// //Mostrando todos os Usuarios na tela
-// useEffect(() => {
-//   const fetchUsers = async () => {
-//     try {
-//       const response = await axios.get('http://localhost:3001/user')
-//       const { data: MyUsers } = response
 
-//       setUsers(MyUsers)
-//     } catch (error) {
-//       console.log(error)
-//     }
-//   }
-//   fetchUsers()
-// }, [])
 
-// // Funcionalidade que permiti que o user seja deletado quando chamamos o function
-// async function deleteUser(userId: number) {
-//   await axios.delete(`http://localhost:3001/user/${userId}`)    
-//   setUsers(prevUsers => prevUsers.filter(u => u.id !== userId));
 
-  /*         Poderia criar um filtro e depois um setUset com novo arrya de user
-      const newUsers = users.filter((user) => user.id !== userId)
-      setUsers(newUsers)
+
+
+// {/* 
+//   /*         Poderia criar um filtro e depois um setUset com novo arrya de user
+//       const newUsers = users.filter((user) => user.id !== userId)
+//       setUsers(newUsers)
   
-      */
+//       */ */}
 
 
 
