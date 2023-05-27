@@ -1,9 +1,11 @@
-import { Container, H1, Image, ContainerItens, Button, User, PaginationContainer, PaginationButton } from './styles';
-import PairPrograming from '../../assets/pair_programming.svg';
+import { Container, H1, Image, ContainerItens, Button, User, PaginationContainer, PaginationButton, UserParagrf } from './styles';
+import playGamer from '../../assets/plat_gamer.svg'
 import { IoArrowForwardOutline } from "react-icons/io5";
 import { BsPencilSquare, BsTrash } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Modal, Input, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/react';
+
 
 interface User {
   id: number;
@@ -12,6 +14,7 @@ interface User {
 }
 
 const Users = () => {
+
   const [users, setUsers] = useState<User[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const usersPerPage = 5;
@@ -46,86 +49,120 @@ const Users = () => {
     setCurrentPage(pageNumber);
   };
 
+
+
+  // Implementando um controler de estado para o modal
+  const [editeModalOpen, setEditeModalOpen] = useState(false)
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null)
+
+  // function que abre o modal quando receber o click do icon
+  const openModal = (userId: number) => {
+    setSelectedUserId(userId)
+    setEditeModalOpen(true)
+  }
+
+  //Controle de inpurt
+  const [name, setName] = useState('')
+  const [age, setAge] = useState<number | undefined>(undefined)
+
+  const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value)
+  }
+
+  const handleChangeAge = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAge(Number(event.target.value));
+  };
+
+  //Logica de salvar ou cancelar Edição
+  const handleSave = async () => {
+    if (!selectedUserId) return
+    try {
+      await axios.put(`http://localhost:3001/user/${selectedUserId}`, { name, age })
+
+      //atualizando os dados do usuarios na lista
+      setUsers(prevUsers =>
+        prevUsers.map(user =>
+          user.id === selectedUserId ? { ...user, name, age } : user)
+      )
+      setEditeModalOpen(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleCancel = () => {
+    setEditeModalOpen(false)
+  }
+
+
   return (
     <Container>
-      <Image alt='Logo People' src={PairPrograming} />
+      <Image alt='Logo People' src={playGamer} />
       <ContainerItens>
-        <H1>Usuários</H1>
+        <H1>Register</H1>
         {/* Lista de usuários cadastrados vindo da API */}
         <ul>
           {currentUsers.map((user) => (
             <User key={user.id}>
-              <p>{user.name}</p>
-              <p>{user.age}</p>
-              <i><BsPencilSquare /></i>
+
+              <UserParagrf>
+                <p>{user.name}</p>
+                <p>{user.age}</p>
+              </UserParagrf>
+              <i onClick={() => openModal(user.id)}><BsPencilSquare /></i>
               <i onClick={() => deleteUser(user.id)}><BsTrash /></i>
             </User>
           ))}
         </ul>
 
         {/* Paginação */}
+
         <PaginationContainer>
-      {pageNumbers.map((pageNumber) => (
-        <PaginationButton
-          key={pageNumber}
-          onClick={() => handlePageChange(pageNumber)}>
-            {pageNumber}
-        </PaginationButton>
-      ))}
-    </PaginationContainer>
+          {pageNumbers.map((pageNumber) => (
+            <PaginationButton
+              key={pageNumber}
+              onClick={() => handlePageChange(pageNumber)}>
+              {pageNumber}
+            </PaginationButton>
+          ))}
+        </PaginationContainer>
         <Button to={'/'}>
           <IoArrowForwardOutline />
           Voltar
         </Button>
       </ContainerItens>
+
+      {/* Modal de Edição */}
+      <Modal isOpen={editeModalOpen} onClose={handleCancel}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>
+            <H1>Editar Usuário</H1>
+          </ModalHeader>
+          <ModalBody>
+            <Input
+              placeholder="Nome"
+              value={name}
+              onChange={handleChangeName}
+            />
+            <Input
+              placeholder="Idade"
+              type="number"
+              value={age ?? ''}
+              onChange={handleChangeAge}
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" onClick={handleSave} mr={3}>
+              Salvar
+            </Button>
+            <Button onClick={handleCancel}>Cancelar</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+      
     </Container>
   );
 };
 
 export default Users;
-
-
-
-
-
-
-
-// {/* 
-//   /*         Poderia criar um filtro e depois um setUset com novo arrya de user
-//       const newUsers = users.filter((user) => user.id !== userId)
-//       setUsers(newUsers)
-  
-//       */ */}
-
-
-
-
-
-
-
-
-
-//   {/* Utilizando o map() para renderizar os itens na tela, pecorrendo no array*/}
-//   <ul>
-//   {users.map((user) => (
-//     <User key={user.id}>
-//       <p>{user.name}</p>
-//       <p>{user.age}</p>
-//       <i onClick={() => deleteUser(user.id)}><IoTrash /></i>
-//     </User>
-//   ))}
-// </ul>
-
-
-
-
-// async function deleteUser(userId: number) {
-//     await axios.delete(`http://localhost:3001/user/${userId}`)
-//     setUsers(prevUsers => prevUsers.filter(u => u.id !== userId));
-
-//     /*         Poderia criar um filtro e depois um setUset com novo arrya de user
-//         const newUsers = users.filter((user) => user.id !== userId)
-//         setUsers(newUsers)
-    
-//         */
-//   }

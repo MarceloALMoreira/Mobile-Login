@@ -1,9 +1,9 @@
 import { Container, H1, Image, ContainerItens, InputLabel, Input, Button, User, LinkUser, ContainerButtons } from './styles'
 import PairPrograming from '../../assets/pair_programming.svg'
+import playGamer from '../../assets/plat_gamer.svg'
 import { IoArrowForwardOutline } from "react-icons/io5";
 import { useState, useRef } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 interface User {
   id: number;
@@ -35,17 +35,20 @@ function Home() {
   return (
     <Container>
 
-      <Image alt='Logo People' src={PairPrograming} />
+      <Image alt='Logo People' src={playGamer} />
 
       <ContainerItens>
 
-        <H1>Bem vindo</H1>
+        <H1>Register</H1>
 
-        <InputLabel>Nome:</InputLabel>
-        <Input ref={inputName} placeholder='Nome' />
+        <InputLabel>Full name</InputLabel>
+        <Input ref={inputName} placeholder='Ex.. Earl J. Smiley' />
 
-        <InputLabel>Idade:</InputLabel>
-        <Input ref={inputAge} placeholder='Idade' />
+        {/* <InputLabel>Email</InputLabel>
+        <Input ref={inputName} placeholder='example@gmail.com' /> */}
+
+        <InputLabel>Age</InputLabel>
+        <Input ref={inputAge} placeholder='Exe.. 26'/>
 
         <ContainerButtons>
 
