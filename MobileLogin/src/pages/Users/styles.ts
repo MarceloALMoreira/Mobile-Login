@@ -96,11 +96,7 @@ export const User = styled.li`
     display: flex;
 
     }
-    i:hover{
-        color: red;
-        opacity: 0.8;
-        transition: 0.3s ease-in;
-    }
+   
     &:hover{
         opacity: 0.8;
         background-color: #4D47D6;
@@ -120,6 +116,24 @@ export const UserParagrf = styled.div`
         padding-left: 12px;
         line-height: 22px;
         color: #fff;
+    }
+`
+
+export const EditUserIcon = styled.i`
+    i{
+        color: white;   
+    }
+    i:hover{
+        color: #41bf09;
+    }
+`
+
+export const DeleteUserIcon = styled.i`
+    i{
+        color: white; 
+    }
+    i:hover{
+        color: #f44336;
     }
 `
 

@@ -1,4 +1,4 @@
-import { Container, H1, Image, ContainerItens, Button, User, PaginationContainer, PaginationButton, UserParagrf, ContainerModal, InputModal, ContainerButton, H2, ButtonModalSalve, ButtonModalCancel } from './styles';
+import { Container, H1, Image, ContainerItens, Button, User, PaginationContainer, PaginationButton, UserParagrf, ContainerModal, InputModal, ContainerButton, H2, ButtonModalSalve, ButtonModalCancel, EditUserIcon, DeleteUserIcon } from './styles';
 import playGamer from '../../assets/plat_gamer.svg'
 import { IoArrowForwardOutline } from "react-icons/io5";
 import { BsPencilSquare, BsTrash } from 'react-icons/bs';
@@ -109,8 +109,16 @@ const Users = () => {
                 <p>{user.name}</p>
                 <p>{user.age}</p>
               </UserParagrf>
-              <i onClick={() => openModal(user.id)}><BsPencilSquare /></i>
-              <i onClick={() => deleteUser(user.id)}><BsTrash /></i>
+              <EditUserIcon onClick={() => openModal(user.id)}>
+                <i>
+                <BsPencilSquare />
+                </i>
+              </EditUserIcon>
+              <DeleteUserIcon onClick={() => deleteUser(user.id)}>
+               <i>
+               <BsTrash />
+               </i>
+              </DeleteUserIcon>
             </User>
           ))}
         </ul>
