@@ -1,10 +1,10 @@
-import { Container, H1, Image, ContainerItens, Button, User, PaginationContainer, PaginationButton, UserParagrf } from './styles';
+import { Container, H1, Image, ContainerItens, Button, User, PaginationContainer, PaginationButton, UserParagrf, ContainerModal, InputModal, ContainerButton, H2, ButtonModalSalve, ButtonModalCancel } from './styles';
 import playGamer from '../../assets/plat_gamer.svg'
 import { IoArrowForwardOutline } from "react-icons/io5";
 import { BsPencilSquare, BsTrash } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Modal, Input, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/react';
+import { Modal, ModalContent } from '@chakra-ui/react';
 
 
 interface User {
@@ -134,33 +134,37 @@ const Users = () => {
 
       {/* Modal de Edição */}
       <Modal isOpen={editeModalOpen} onClose={handleCancel}>
-        <ModalOverlay />
         <ModalContent>
-          <ModalHeader>
-            <H1>Editar Usuário</H1>
-          </ModalHeader>
-          <ModalBody>
-            <Input
-              placeholder="Nome"
-              value={name}
-              onChange={handleChangeName}
-            />
-            <Input
-              placeholder="Idade"
-              type="number"
-              value={age ?? ''}
-              onChange={handleChangeAge}
-            />
-          </ModalBody>
-          <ModalFooter>
-            <Button colorScheme="blue" onClick={handleSave} mr={3}>
-              Salvar
-            </Button>
-            <Button onClick={handleCancel}>Cancelar</Button>
-          </ModalFooter>
+          <ContainerModal>
+            <H2>Editar Usuário</H2>
+            <InputModal>
+              <input
+                placeholder="Nome"
+                value={name}
+                onChange={handleChangeName}
+              />
+              <input
+                placeholder="Idade"
+                type="number"
+                value={age ?? ''}
+                onChange={handleChangeAge}
+              />
+            </InputModal>
+
+            <ContainerButton>
+              <ButtonModalSalve onClick={handleSave}>
+                Salvar
+              </ButtonModalSalve>
+
+              <ButtonModalCancel onClick={handleCancel}>
+                Cancelar
+              </ButtonModalCancel>
+            </ContainerButton>
+
+          </ContainerModal>
         </ModalContent>
       </Modal>
-      
+
     </Container>
   );
 };

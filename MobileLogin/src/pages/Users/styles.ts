@@ -1,4 +1,4 @@
-import { Link } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
 export const Container = styled.div`
@@ -32,7 +32,7 @@ export const ContainerItens = styled.div`
 `
 
 export const H1 = styled.h1`
-   font-style: normal;
+    font-style: normal;
     font-weight: 500;
     width: auto;
     font-size: 24px;
@@ -52,13 +52,12 @@ export const Button = styled(Link)`
     text-decoration: none;
     margin-top: 10px;
     
-    width: 342px;
-    height: 54px;
-
+    width: 157px;
+    height: 34px;
     border-radius: 14px;
-    border: 1px solid white;
-    background-color: transparent;
-    font-size: 18px;
+    background: #4D47D6;
+    /* background-color: transparent; */
+    font-size: 14px;
     color: #fff;
     a{
         text-decoration: none;
@@ -146,6 +145,81 @@ export const PaginationButton = styled.button`
    
   }
 `
-
-
 // Modal
+
+export const H2 = styled.h2`
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    font-style: normal;
+    font-weight: 500;
+    width: 50%;
+    font-size: 24px;
+    line-height: 40px;
+    margin-bottom: 22px;
+    border-radius: 7.5px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    color: #fff;
+`
+
+export const ContainerModal = styled.section `
+    display: flex;
+    gap: 15px;
+
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 7.5px;
+    padding: 5px;
+    background: linear-gradient(157.44deg, rgba(255, 255, 255, 0.6) 0.84%, rgba(255, 255, 255, 0.6) 0.85%, rgba(255, 255, 255, 0.15) 100%);
+    backdrop-filter: blur(22.5px);
+`
+
+
+export const InputModal = styled.section`
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+    > input{
+        display: flex;
+        align-self: center;
+        width: 25%;
+        height: 22px;      
+        border-radius: 7.5px;
+        padding-left: 15px;
+        border: none;
+        outline: none;
+    }
+`
+
+export const ContainerButton = styled.div`
+    display: flex;
+    align-self: center;
+    width: 25%;
+    gap: 10px;
+`
+
+export const ButtonModalSalve = styled.button`
+    display: flex;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 34px;
+    border-radius: 14px;
+    background: #5cd527;
+    font-size: 14px;
+    color: #fff;
+`
+
+export const ButtonModalCancel = styled.button`
+    display: flex;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 34px;
+    border-radius: 14px;
+    background: #f44336;
+    font-size: 14px;
+    color: #fff;
+`
