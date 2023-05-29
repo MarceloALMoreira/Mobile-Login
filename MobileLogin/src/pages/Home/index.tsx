@@ -1,9 +1,10 @@
 import { Container, H1, Image, ContainerItens, InputLabel, Input, Button, User, LinkUser, ContainerButtons } from './styles'
-import PairPrograming from '../../assets/pair_programming.svg'
 import playGamer from '../../assets/plat_gamer.svg'
 import { IoArrowForwardOutline } from "react-icons/io5";
 import { useState, useRef } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface User {
   id: number;
@@ -24,13 +25,32 @@ function Home() {
   // Cadastrando um Usuario
   async function addNewUser() {
 
-    const { data: newUser } = await axios.post('http://localhost:3001/user', {
-      name: inputName.current?.value,
-      age: inputAge.current?.value,
-    })
-    // console.log(newUser)
-    setUsers([...users, newUser])
+    try {
+      const { data: newUser } = await axios.post('http://localhost:3001/user', {
+        name: inputName.current?.value,
+        age: inputAge.current?.value,
+      })
+      // console.log(newUser)
+      setUsers([...users, newUser])
+
+      // Limpando os inputs
+      if (inputName.current && inputAge.current) {
+        inputName.current.value = ''
+        inputAge.current.value = ''
+      }
+      showToastMessage()
+    } catch (error) {
+      console.log(error)
+    }
   }
+
+  //Exibir menssagem de sucesso register user
+  const showToastMessage = () =>{
+    toast.success('Usuário cadastrado com sucesso!', {
+      position: toast.POSITION.TOP_CENTER
+    });
+  };
+
 
   return (
     <Container>
@@ -44,17 +64,17 @@ function Home() {
         <InputLabel>Full name</InputLabel>
         <Input ref={inputName} placeholder='Ex.. Earl J. Smiley' />
 
-        {/* <InputLabel>Email</InputLabel>
-        <Input ref={inputName} placeholder='example@gmail.com' /> */}
-
+       
         <InputLabel>Age</InputLabel>
-        <Input ref={inputAge} placeholder='Exe.. 26'/>
+        <Input ref={inputAge} placeholder='Exe.. 26' />
 
         <ContainerButtons>
 
           <Button onClick={addNewUser}>
             Cadastrar
             <IoArrowForwardOutline />
+            <ToastContainer />
+
           </Button>
 
           <LinkUser to={'/users'}>
@@ -64,7 +84,6 @@ function Home() {
         </ContainerButtons>
 
       </ContainerItens>
-
     </Container>
   )
 }

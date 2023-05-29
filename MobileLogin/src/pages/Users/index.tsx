@@ -5,6 +5,8 @@ import { BsPencilSquare, BsTrash } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Modal, ModalContent } from '@chakra-ui/react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 interface User {
@@ -38,8 +40,22 @@ const Users = () => {
   const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
 
   const deleteUser = async (userId: number) => {
-    await axios.delete(`http://localhost:3001/user/${userId}`);
-    setUsers(prevUsers => prevUsers.filter(u => u.id !== userId));
+
+    try {
+      await axios.delete(`http://localhost:3001/user/${userId}`);
+      setUsers(prevUsers => prevUsers.filter(u => u.id !== userId));
+
+      showToastMessage()
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+  //Exibir menssagem de error delete user
+  const showToastMessage = () => {
+    toast.error('Usuário deletado com sucesso!', {
+      position: toast.POSITION.TOP_CENTER
+    });
   };
 
   const totalPages = Math.ceil(users.length / usersPerPage);
@@ -48,8 +64,6 @@ const Users = () => {
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
-
-
 
   // Implementando um controler de estado para o modal
   const [editeModalOpen, setEditeModalOpen] = useState(false)
@@ -71,7 +85,7 @@ const Users = () => {
 
   const handleChangeAge = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAge(Number(event.target.value));
-  };
+  }
 
   //Logica de salvar ou cancelar Edição
   const handleSave = async () => {
@@ -85,6 +99,12 @@ const Users = () => {
           user.id === selectedUserId ? { ...user, name, age } : user)
       )
       setEditeModalOpen(false)
+
+      showToastMessageSalve()
+
+    setName('')
+    setAge(undefined)
+
     } catch (error) {
       console.log(error)
     }
@@ -94,9 +114,16 @@ const Users = () => {
     setEditeModalOpen(false)
   }
 
+  //Exibir menssagem de Save user
+  const showToastMessageSalve = () => {
+    toast.success('Usuário atualizado com sucesso!', {
+      position: toast.POSITION.TOP_CENTER
+    });
+  }
 
   return (
     <Container>
+
       <Image alt='Logo People' src={playGamer} />
       <ContainerItens>
         <H1>Register</H1>
@@ -111,13 +138,14 @@ const Users = () => {
               </UserParagrf>
               <EditUserIcon onClick={() => openModal(user.id)}>
                 <i>
-                <BsPencilSquare />
+                  <BsPencilSquare />
                 </i>
               </EditUserIcon>
               <DeleteUserIcon onClick={() => deleteUser(user.id)}>
-               <i>
-               <BsTrash />
-               </i>
+                <ToastContainer />
+                <i>
+                  <BsTrash />
+                </i>
               </DeleteUserIcon>
             </User>
           ))}
@@ -163,6 +191,7 @@ const Users = () => {
               <ButtonModalSalve onClick={handleSave}>
                 Salvar
               </ButtonModalSalve>
+              <ToastContainer />
 
               <ButtonModalCancel onClick={handleCancel}>
                 Cancelar
