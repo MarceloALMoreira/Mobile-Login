@@ -1,4 +1,4 @@
-import { Container, H1, Image, ContainerItens, Button, User, PaginationContainer, PaginationButton, UserParagrf, ContainerModal, InputModal, ContainerButton, H2, ButtonModalSalve, ButtonModalCancel, EditUserIcon, DeleteUserIcon } from './styles';
+import { Container, Image, H1, ContainerItens, Button, User, PaginationContainer, PaginationButton, UserParagrf, ContainerModal, InputModal, ContainerButton, H2, ButtonModalSalve, ButtonModalCancel, EditUserIcon, DeleteUserIcon } from './styles';
 import playGamer from '../../assets/plat_gamer.svg'
 import { IoArrowForwardOutline } from "react-icons/io5";
 import { BsPencilSquare, BsTrash } from 'react-icons/bs';
@@ -7,17 +7,18 @@ import axios from 'axios';
 import { Modal, ModalContent } from '@chakra-ui/react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Usuarios } from '../../interface';
+// import { H1 } from '../../components/Title/styles';
 
-
-interface User {
-  id: number;
-  name: string;
-  age: number | undefined;
-}
+// interface User {
+//   id: number;
+//   name: string;
+//   age: number | undefined;
+// }
 
 const Users = () => {
 
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<Usuarios[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const usersPerPage = 5;
 
@@ -126,7 +127,7 @@ const Users = () => {
 
       <Image alt='Logo People' src={playGamer} />
       <ContainerItens>
-        <H1>Register</H1>
+        <H1>Usuários</H1>
         {/* Lista de usuários cadastrados vindo da API */}
         <ul>
           {currentUsers.map((user) => (
