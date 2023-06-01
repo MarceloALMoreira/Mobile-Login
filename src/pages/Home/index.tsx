@@ -1,4 +1,4 @@
-import { Container, Image, ContainerItens, InputLabel, Input, Button, User, LinkUser, ContainerButtons } from './styles'
+import { Container, Image, ContainerItens, InputLabel, Input,  User, LinkUser, ContainerButtons } from './styles'
 import playGamer from '../../assets/plat_gamer.svg'
 import { IoArrowForwardOutline } from "react-icons/io5";
 import { useState, useRef } from 'react';
@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { H1 } from '../../components/Title/styles';
+import Button from '../../components/Button';
 
 interface User {
   id: number;
@@ -72,7 +73,7 @@ function Home() {
 
         <ContainerButtons>
 
-          <Button onClick={addNewUser}>
+          <Button isBack={false} onClick={addNewUser}>
             Cadastrar
             <IoArrowForwardOutline />
             <ToastContainer />
